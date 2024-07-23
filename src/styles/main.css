@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Inconsolata';
+    src: url("Inconsolata-Regular.ttf") format("truetype");
+}
+
+body{
+    margin: 0;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: azure;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content{
+    width: inherit;
+
+}
+
+#header{
+    justify-self: flex-start;
+    min-height: 8%;
+    background-color: yellow;
+    font-family: 'Inconsolata';
+    text-align: justify;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h2{
+    position: relative;
+    left: 20px;
+}
+
+#search-options-form{
+    position: relative;
+    right: 25px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#today{
+    background-color: pink;
+    min-height: 30%;
+}
+
+#weekly{
+    background-color: cyan;
+    min-height: 62%;
+}
+
+

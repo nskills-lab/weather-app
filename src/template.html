@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>Weather App</title>
+</head>
+<body>
+    <div class="container">
+        <div id="header" class="content">
+            <h2 id="app-title">Weekly Weather Forecast</h2>
+            <div id="controls">
+            <form id="search-options-form">
+                <fieldset>
+                    <legend>Enter a City</legend>
+                    <label for="search"></label>
+                    <input type="search">
+                    <button type="submit">Search</button>
+                </fieldset>
+                <fieldset> 
+                    <legend>Temp Scale</legend>
+                    <button>°F</button>
+                    <button>°C</button>
+                </fieldset>
+            </form>
+        </div>
+           
+        </div>
+        <div id="today" class="content"></div>
+        <div id="weekly" class="content"></div>
+    </div>
+    
+</body>
+</html>
