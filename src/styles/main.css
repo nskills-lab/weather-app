@@ -47,14 +47,9 @@ h2{
     justify-content: space-around;
 }
 
-#today{
-    background-color: pink;
-    min-height: 30%;
-}
-
 #weekly{
     background-color: cyan;
-    min-height: 62%;
+    min-height: 92%;
 }
 
 
