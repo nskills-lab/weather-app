@@ -10,24 +10,80 @@
     <div class="container">
         <div id="header" class="content">
             <h2 id="app-title">Weekly Weather Forecast</h2>
-            <div id="controls">
             <form id="search-options-form">
-                <fieldset>
-                    <legend>Enter a City</legend>
                     <label for="search"></label>
-                    <input type="search">
-                    <button type="submit">Search</button>
-                </fieldset>
-                <fieldset> 
-                    <legend>Temp Scale</legend>
-                    <button>°F</button>
-                    <button>°C</button>
-                </fieldset>
-            </form>
+                    <input id="search" type="search" placeholder="Search city ">
+                    <button id="button-search" type="submit">&#x1F50D;</button>
+            </form>     
         </div>
-           
+        <div id="today" class="content">
+            <div id="location-name">Chicago</div>
+            <div id="weather-content">
+                <div id="current-temp">21°</div>
+                <div id="weather-desc">Sunny</div>
+                <div id="temp">
+                    <div id="high-temp">H 25°</div>
+                    <div id="low-temp"></div>L 15°</div> 
+            </div>
+            <fieldset id="temp-scale"> 
+                <legend>Temp Scale</legend>
+                <button>°F</button>
+                <button>°C</button>
+            </fieldset>
         </div>
-        <div id="weekly" class="content"></div>
+        <div id="weekly" class="content">
+            <div data-weekly-card>
+                <div data-weekly-card-date>Wed Jul 24</div>
+                <div data-weekly-card-temp-desc>Partly Cloudy</div>
+                <div data-weekly-card-temp>
+                    <div data-weekly-card-temp-high>H 25</div>
+                    <div data-weekly-card-temp-low>L 15°</div>
+                </div>
+            </div>
+            <div data-weekly-card>
+                <div data-weekly-card-date>Thu Jul 25</div>
+                <div data-weekly-card-temp-desc>Partly Cloudy</div>
+                <div data-weekly-card-temp>
+                    <div data-weekly-card-temp-high>H 25</div>
+                    <div data-weekly-card-temp-low>L 15°</div>
+                </div>
+            </div>
+            <div data-weekly-card>
+                <div data-weekly-card-date>Fri Jul 26</div>
+                <div data-weekly-card-temp-desc>Partly Cloudy</div>
+                <div data-weekly-card-temp>
+                    <div data-weekly-card-temp-high>H 25</div>
+                    <div data-weekly-card-temp-low>L 15°</div>
+                </div>
+            </div>
+            <div data-weekly-card>
+                <div data-weekly-card-date>Sat Jul 27</div>
+                <div data-weekly-card-temp-desc>Partly Cloudy</div>
+                <div data-weekly-card-temp>
+                    <div data-weekly-card-temp-high>H 25</div>
+                    <div data-weekly-card-temp-low>L 15°</div>
+                </div>
+            </div>
+            <div data-weekly-card>
+                <div data-weekly-card-date>Sun Jul 28</div>
+                <div  data-weekly-card-temp-icon>Icon</div>
+                <div data-weekly-card-temp-desc>Partly Cloudy</div>
+                <div data-weekly-card-temp>
+                    <div data-weekly-card-temp-high>H 25</div>
+                    <div data-weekly-card-temp-low>L 15°</div>
+                </div>
+            </div>
+            <div data-weekly-card>
+                <div data-weekly-card-date>Sun Jul 28</div>
+                <div  data-weekly-card-temp-icon>Icon</div>
+                <div data-weekly-card-temp-desc>Partly Cloudy</div>
+                <div data-weekly-card-temp>
+                    <div data-weekly-card-temp-high>H 25</div>
+                    <div data-weekly-card-temp-low>L 15°</div>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
     
 </body>
