@@ -13,7 +13,7 @@ import { timelineWeatherClient } from "./api/client/timelineWeather.js"
 import { week } from "./utils/dateUtils.js"
 
 
-const getWeatherForecastWeek = async ({location = 'Chicago', date1, date2} = {}) =>  {
+const getWeatherForecastWeek = async ({location = 'New York', date1, date2} = {}) =>  {
     const today = new Date()
     const dateStart = date1 ?? `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`
     today.setDate(today.getDate() + 6)
@@ -42,7 +42,7 @@ const renderWeatherData = async(weatherData) =>{
             dateEl.innerText = `${weekDay}`
         }
         const tempDescEl = dayCard.querySelector('[data-weekly-card-temp-desc]')
-        tempDescEl.innerText = `${weatherDatum.conditions}`
+        tempDescEl.innerText = `${weatherDatum.conditions.split(',')[0]}`
         const tempHighEl =  dayCard.querySelector('[data-weekly-card-temp-high]')
         tempHighEl.innerText = `H ${weatherDatum.tempmax}°`
         const tempLowEl = dayCard.querySelector('[data-weekly-card-temp-low]')
