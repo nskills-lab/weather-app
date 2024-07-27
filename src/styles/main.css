@@ -115,7 +115,7 @@ div[data-weekly-card]{
     display: flex;
     flex-direction: column;
     /* border: 1px solid #fed7aa; */
-    box-shadow: #030712 0px 13px 27px -5px, #fed7aa 0px 8px 16px -8px;
+    box-shadow: #030712 0px 13px 27px -5px, #fed7aa 1px 8px 16px -8px;
     align-items: center;
     justify-content: center;
 }

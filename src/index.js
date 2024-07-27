@@ -11,18 +11,35 @@
 
 import { timelineWeatherClient } from "./api/client/timelineWeather.js"
 import { week } from "./utils/dateUtils.js"
+const searchForm = document.getElementById('search-options-form')
 
+const displayWeatherForLocation = async (e) => {
+    e.preventDefault();
+    const cityToSearch =  document.getElementById('search').value 
+    console.log(cityToSearch)
+    if (cityToSearch.length === 0 ) return alert("City name can't be blank!")
+    try {
+    const weather = await getWeatherForecastWeek({location: cityToSearch})
+    await renderWeatherData(weather)
+    } catch (e){
+        alert("Invalid request!")
+    }
+}
 
-const getWeatherForecastWeek = async ({location = 'New York', date1, date2} = {}) =>  {
+const getWeatherForecastWeek = async ({location, date1, date2} = {}) =>  {
     const today = new Date()
     const dateStart = date1 ?? `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`
     today.setDate(today.getDate() + 6)
     const dateEnd = date2 ??`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`
-    const URL = timelineWeatherClient.endpoint() + `/${location}/${dateStart}/${dateEnd}?key=${timelineWeatherClient.key}`
+    const locationToSearch = location ?? 'New York'
+    const URL = timelineWeatherClient.endpoint() + `/${locationToSearch}/${dateStart}/${dateEnd}?key=${timelineWeatherClient.key}`
     const response = await fetch(URL, {mode: 'cors'})
-
-   const {currentConditions, days} = (await response.json())
-   return {currentConditions, days} 
+    if (!response.ok) {
+            throw new Error("HTTP status " + response.status);
+    }
+    const {currentConditions, days} = (await response.json())
+    return {currentConditions, days} 
+    
 }
 
 
@@ -51,6 +68,6 @@ const renderWeatherData = async(weatherData) =>{
     });
 }
 
-const weather = await getWeatherForecastWeek()
-renderWeatherData(weather)
 
+
+searchForm.addEventListener('submit', displayWeatherForLocation)
