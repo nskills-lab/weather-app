@@ -44,9 +44,9 @@ const renderWeatherData = async(weatherData) =>{
         const tempDescEl = dayCard.querySelector('[data-weekly-card-temp-desc]')
         tempDescEl.innerText = `${weatherDatum.conditions}`
         const tempHighEl =  dayCard.querySelector('[data-weekly-card-temp-high]')
-        tempHighEl.innerText = `${weatherDatum.tempmax}`
+        tempHighEl.innerText = `H ${weatherDatum.tempmax}°`
         const tempLowEl = dayCard.querySelector('[data-weekly-card-temp-low]')
-        tempLowEl.innerText = weatherDatum.tempmin
+        tempLowEl.innerText = `L ${weatherDatum.tempmin}°`
         
     });
 }
