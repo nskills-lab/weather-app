@@ -21,6 +21,8 @@ import { timelineWeatherClient } from "./api/client/timelineWeather.js"
 import { week } from "./utils/dateUtils.js"
 const searchForm = document.getElementById('search-options-form')
 const cityInput =  document.getElementById('location-name')
+const fahrenheit = document.getElementById('fahrenheit')
+const celsius = document.getElementById('celsius')
 
 const displayWeatherForLocation = async (e) => {
     e.preventDefault();
@@ -94,4 +96,7 @@ const defaultDisplay = async()=>{
     cityInput.innerText = 'New York'
 }
 await defaultDisplay()
+document.addEventListener('click', (e)=> {
+    
+})
 searchForm.addEventListener('submit', displayWeatherForLocation)

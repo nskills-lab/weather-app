@@ -12,10 +12,14 @@
         <div id="header" class="content">
             <h2 id="app-title">Weekly Weather Forecast</h2>
             <form id="search-options-form">
-                    <label for="search"></label>
-                    <input id="search" type="search" placeholder="Search city" value="">
-                    <button id="button-search" type="submit">&#x1F50D;</button>
+                <label for="search"></label>
+                <input id="search" type="search" placeholder="Search city" value="">
+                <button id="button-search" type="submit">&#x1F50D;</button>
             </form>     
+            <div id="temp-scale"> 
+                <button id="fahrenheit" class="active">°F</button>
+                <button id="celsius" class="inactive">°C</button>
+            </div>
         </div>
         <div id="today" class="content">
             <div id="location-name"></div>
@@ -26,16 +30,11 @@
                 <div id="temp">
                     <div id="high-temp"data-weekly-card-temp-high></div>
                     <div id="low-temp" data-weekly-card-temp-low></div></div> 
+                </div>
             </div>
-            <fieldset id="temp-scale"> 
-                <legend>Temp Scale</legend>
-                <button>°F</button>
-                <button>°C</button>
-            </fieldset>
-        </div>
-        <div id="weekly" class="content">
-            <div data-weekly-card  data-day="1">
-                <div data-weekly-card-date></div>
+            <div id="weekly" class="content">
+                <div data-weekly-card  data-day="1">
+                    <div data-weekly-card-date></div>
                 <div data-weekly-card-temp-icon>Icon</div>
                 <div data-weekly-card-temp-desc></div>
                 <div data-weekly-card-temp>
