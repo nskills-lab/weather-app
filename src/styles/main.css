@@ -1,6 +1,6 @@
 :root{
     --main-box-shadow: #030712 0px 13px 27px -5px, #fed7aa 1px 8px 16px -8px;
-    --main-border-radius: .3rem;
+    --main-border-radius: .5rem;
     --main-light-color: #f0f9ff;
     --main-dark-color: #030712;
 }
@@ -66,6 +66,23 @@ input#search{
     font-size: 1rem;
 }
 
+input#search+span:after{
+    font-size: 0.8rem;
+    position: absolute;
+    top: 50px;
+    left: 75%;
+}
+
+input#search.required-error+span::after {
+    content: 'required';
+    color: red;
+    
+}
+input#search.required-error{
+    outline: dashed red;
+}
+
+
 #button-search{
     position: relative;
     left: 10px;
@@ -100,7 +117,7 @@ input#search{
     height: 10%;
 }
 
-#current-temp{
+div[data-weekly-card-temp='now']{
     font-size: 2.2rem;
 }
 
@@ -146,8 +163,11 @@ div[data-weekly-card-date]{
 button{
     box-shadow: var(--main-box-shadow);
     border-radius: var(--main-border-radius);
-    border: thin;
-    font-size: 1.1rem;
+    border: none;
+    font-size: 1rem;
+    width: 35px;
+    height: 30px;
+    
 }
 
 #button-search{
@@ -170,3 +190,4 @@ button:focus{
     transform: scale(1.1);
     cursor: pointer;
 }
+

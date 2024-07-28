@@ -14,77 +14,78 @@
             <form id="search-options-form">
                 <label for="search"></label>
                 <input id="search" type="search" placeholder="Search city" value="">
+                <span></span>
                 <button id="button-search" type="submit">&#x1F50D;</button>
             </form>     
             <div id="temp-scale"> 
-                <button id="fahrenheit" class="active">°F</button>
-                <button id="celsius" class="inactive">°C</button>
+                <button class="active" data-temp-scale="fahrenheit">°F</button>
+                <button class="inactive" data-temp-scale="celsius">°C</button>
             </div>
         </div>
         <div id="today" class="content">
             <div id="location-name"></div>
             <div id="weather-content" data-day="0">
-                <div id="current-temp" data-weekly-card-now></div>
+                <div data-weekly-card-temp="now" ></div>
                 <div data-weekly-card-temp-icon>Icon</div>
-                <div id="weather-desc" data-weekly-card-temp-desc></div>
+                <div id="weather-desc" data-weekly-card-temp="desc"></div>
                 <div id="temp">
-                    <div id="high-temp"data-weekly-card-temp-high></div>
-                    <div id="low-temp" data-weekly-card-temp-low></div></div> 
+                    <div id="high-temp" data-weekly-card-temp="high"></div>
+                    <div id="low-temp" data-weekly-card-temp="low"></div></div> 
                 </div>
             </div>
             <div id="weekly" class="content">
                 <div data-weekly-card  data-day="1">
                     <div data-weekly-card-date></div>
                 <div data-weekly-card-temp-icon>Icon</div>
-                <div data-weekly-card-temp-desc></div>
-                <div data-weekly-card-temp>
-                    <div data-weekly-card-temp-high></div>
-                    <div data-weekly-card-temp-low></div>
+                <div data-weekly-card-temp="desc"></div>
+                <div data-weekly-card-temp="high-low">
+                    <div  data-weekly-card-temp="high"></div>
+                    <div  data-weekly-card-temp="low"></div>
                 </div>
             </div>
             <div data-weekly-card  data-day="2">
                 <div data-weekly-card-date></div>
                 <div data-weekly-card-temp-icon>Icon</div>
-                <div data-weekly-card-temp-desc></div>
-                <div data-weekly-card-temp>
-                    <div data-weekly-card-temp-high></div>
-                    <div data-weekly-card-temp-low></div>
+                <div data-weekly-card-temp="desc"></div>
+                <div data-weekly-card-temp="high-low">
+                    <div data-weekly-card-temp="high"></div>
+                    <div data-weekly-card-temp="low"></div>
                 </div>
             </div>
             <div data-weekly-card  data-day="3">
                 <div data-weekly-card-date></div>
                 <div data-weekly-card-temp-icon>Icon</div>
-                <div data-weekly-card-temp-desc></div>
-                <div data-weekly-card-temp>
-                    <div data-weekly-card-temp-high></div>
-                    <div data-weekly-card-temp-low></div>
+                <div data-weekly-card-temp="desc"></div>
+                <div data-weekly-card-temp="high-low">
+                    <div data-weekly-card-temp="high"></div>
+                    <div data-weekly-card-temp="low"></div>
                 </div>
             </div>
             <div data-weekly-card  data-day="4">
                 <div data-weekly-card-date></div>
                 <div data-weekly-card-temp-icon>Icon</div>
-                <div data-weekly-card-temp-desc></div>
-                <div data-weekly-card-temp>
-                    <div data-weekly-card-temp-high></div>
-                    <div data-weekly-card-temp-low></div>
+                <div data-weekly-card-temp="desc"></div>
+                <div data-weekly-card-temp="high-low">
+                    <div data-weekly-card-temp="high"></div>
+                    <div data-weekly-card-temp="low"></div>
                 </div>
             </div>
             <div data-weekly-card  data-day="5">
                 <div data-weekly-card-date></div>
                 <div  data-weekly-card-temp-icon>Icon</div>
-                <div data-weekly-card-temp-desc></div>
-                <div data-weekly-card-temp>
-                    <div data-weekly-card-temp-high></div>
-                    <div data-weekly-card-temp-low></div>
+                <div data-weekly-card-temp="desc"></div>
+                <div data-weekly-card-temp="high-low">
+                    <div data-weekly-card-temp="high"></div>
+                    <div data-weekly-card-temp="low"></div>
                 </div>
             </div>
             <div data-weekly-card  data-day="6">
                 <div data-weekly-card-date></div>
                 <div data-weekly-card-temp-icon>Icon</div>
-                <div data-weekly-card-temp-desc></div>
-                <div data-weekly-card-temp>
-                    <div data-weekly-card-temp-high></div>
-                    <div data-weekly-card-temp-low></div>
+                <div data-weekly-card-temp="desc"></div>
+                <div data-weekly-card-temp="high-low">
+                    <div data-weekly-card-temp="high"></div>
+                    <div data-weekly-card-temp="low"></div>
                 </div>
                 </div>
             </div>
