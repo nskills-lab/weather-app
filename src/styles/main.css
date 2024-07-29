@@ -66,23 +66,6 @@ input#search{
     font-size: 1rem;
 }
 
-input#search+span:after{
-    font-size: 0.8rem;
-    position: absolute;
-    top: 50px;
-    left: 75%;
-}
-
-input#search.required-error+span::after {
-    content: 'required';
-    color: red;
-    
-}
-input#search.required-error{
-    outline: dashed red;
-}
-
-
 #button-search{
     position: relative;
     left: 10px;

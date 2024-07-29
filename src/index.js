@@ -15,6 +15,6 @@
 
 import DOM from "./views/DOM.js"
 
-window.onload = await DOM.defaultDisplay()
+await DOM.loadFromLocalStorage()
 document.addEventListener('click', DOM.switchTimeScales)
 document.getElementById('search-options-form').addEventListener('submit', DOM.displayWeatherForLocation)

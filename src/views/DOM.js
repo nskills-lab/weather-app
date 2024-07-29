@@ -7,8 +7,10 @@ const locationName =  document.getElementById('location-name')
 export default class DOM {
 
     static async displayWeatherForLocation (event){
+        const lastForecast = JSON.parse(getFromLocalStorage())
         event.preventDefault();
         const input = document.getElementById('search')
+        console.log(lastForecast)
         let cityToSearch =  input .value 
         try {
             if (cityToSearch.length === 0 ){
@@ -17,15 +19,17 @@ export default class DOM {
           const forecast = await ForecastService.fetchweekly({location: cityToSearch})
           const parsedForcastData = ForecastService.extractWeatherData(forecast)
           parsedForcastData.push({'city': cityToSearch})
+          parsedForcastData.push({'scale': 'fahrenheit'})
           saveToLocalStorage(JSON.stringify(parsedForcastData))
           DOM.renderWeatherData({weather: parsedForcastData, location: cityToSearch})
           
         } catch (error){
             if (error.message.match('HTTP')){
-                input .classList.toggle('invalid-request-error')
-            } 
-            input.classList.toggle('required-error')
-            const lastForecast = JSON.parse(getFromLocalStorage())
+                console.log(alert('Invalid request!'))
+            } else {
+                alert(error)
+            }
+            console.log(lastForecast)
             DOM.renderWeatherData({weather: lastForecast, location: lastForecast[7].city})
         } 
     }
@@ -63,6 +67,9 @@ export default class DOM {
             const tempLowEl = dayCard.querySelector('[data-weekly-card-temp="low"]')
             DOM.updateTempElement(tempLowEl, weatherDatum.low)
         });
+        const currentEl = document.querySelector('[data-weekly-card-temp-scale]')
+    
+        currentEl.dataset.weeklyCardTempScale = weather[8].scale
     }
 
     static updateTempElement(element, temp){
@@ -71,22 +78,33 @@ export default class DOM {
     }
 
     static async  updateTempScaleDisplay (tempScale) {
+        const localStorageForecast = JSON.parse(getFromLocalStorage())
         document.querySelectorAll('[data-day]').forEach(dayCard =>{
             const day = dayCard.dataset.day
             let convertedDegree
             if (day === '0'){
                 const todayTempEl = dayCard.querySelector('[data-weekly-card-temp="now"]')
                 convertedDegree = appUtils.convertTemp(tempScale, Number(todayTempEl.dataset.tempValue) )
+                localStorageForecast[day].currentTemp =  convertedDegree 
                 DOM.updateTempElement(todayTempEl, convertedDegree)
             }   
             const tempHighEl =  dayCard.querySelector('[data-weekly-card-temp="high"]')
             convertedDegree = appUtils.convertTemp(tempScale, Number(tempHighEl.dataset.tempValue) )
+            localStorageForecast[day].high = convertedDegree 
             DOM.updateTempElement(tempHighEl, convertedDegree)
     
             const tempLowEl = dayCard.querySelector('[data-weekly-card-temp="low"]')
             convertedDegree = appUtils.convertTemp(tempScale, Number(tempLowEl.dataset.tempValue))
+            localStorageForecast[day].low = convertedDegree 
             DOM.updateTempElement(tempLowEl, convertedDegree)
         })
+
+        localStorageForecast[8].scale = tempScale
+        const currentEl = document.querySelector('[data-weekly-card-temp-scale]')
+
+        currentEl.dataset.weeklyCardTempScale =   localStorageForecast[8].scale 
+        saveToLocalStorage(JSON.stringify(localStorageForecast))
+
     }
 
     static async defaultDisplay (){
@@ -94,11 +112,21 @@ export default class DOM {
         const weather = await ForecastService.fetchweekly({location: defaultCity})
         const parsedForcastData = ForecastService.extractWeatherData(weather)
         parsedForcastData.push({'city': defaultCity})
+        parsedForcastData.push({'scale': 'fahrenheit'})
         saveToLocalStorage(JSON.stringify(parsedForcastData))
         DOM.renderWeatherData({weather:  parsedForcastData, location: defaultCity} )
    
     }
 
+    static async loadFromLocalStorage (){
+        const local = getFromLocalStorage()
+        if(!getFromLocalStorage()){
+            await DOM.defaultDisplay()
+        } else {
+        const lastForecast = JSON.parse(getFromLocalStorage())
+        DOM.renderWeatherData({weather: lastForecast, location: lastForecast[7].city})
+        }
+    }
 
     static switchTimeScales(event){
         if(event.target.matches('button')){
