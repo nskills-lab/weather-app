@@ -174,19 +174,18 @@ button{
     background-color: var(--main-light-color);
 }
 
-button.active{
+button[data-temp-scale]{
     background-color: var(--main-dark-color);
     color: var(--main-light-color);
 }
 
-button.inactive{
+button.off{
     opacity: .5;
     background-color: var(--main-light-color);
     color: var(--main-dark-color);
 }
 
-button:hover,
-button:focus{
+button:hover{
     transform: scale(1.1);
     cursor: pointer;
 }

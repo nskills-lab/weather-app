@@ -102,12 +102,24 @@ export default class DOM {
 
     static switchTimeScales(event){
         if(event.target.matches('button')){
-            const tempScale = event.target.dataset.tempScale
-            const currentScaleEl = document.querySelector('[data-weekly-card-temp-scale]')
-            const currentValue = currentScaleEl.dataset.weeklyCardTempScale
-            if (currentValue === tempScale) return
-            currentScaleEl.dataset.weeklyCardTempScale = tempScale
-            DOM.updateTempScaleDisplay(tempScale)
+            const selectedTempScale = event.target.dataset.tempScale
+            const currentEl = (document.querySelector('[data-weekly-card-temp-scale]'))
+            const currentScaleValue = currentEl.dataset.weeklyCardTempScale
+            if (currentScaleValue === selectedTempScale) return
+
+            currentEl.dataset.weeklyCardTempScale = selectedTempScale 
+            const scaleBtns = document.querySelectorAll('[data-temp-scale]')
+            scaleBtns.forEach(btn =>{
+                const classes = [...btn.classList]
+                    if (classes.includes('off')){
+                        btn.classList.remove('off')
+                    } else {
+                    btn.classList.toggle('off')
+                    }
+
+            })
+         
+            DOM.updateTempScaleDisplay(selectedTempScale)
         }
     }
 }
