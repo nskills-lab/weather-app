@@ -16,4 +16,22 @@ export default class ForecastService {
         return {currentConditions, days} 
         
     }
+
+    static extractWeatherData (forecastRes){
+
+        let weatherToSave = []
+        for (let day = 0; day < 7; day++){
+            weatherToSave[day] = {}
+            let dailyWeather = forecastRes.days[day]
+       
+            weatherToSave[day]['date'] =   dailyWeather.datetime.replaceAll('-', ',')
+            if (day === 0){
+                weatherToSave[day]['currentTemp'] = forecastRes.currentConditions.temp
+            }
+            weatherToSave[day]['desc'] = dailyWeather.conditions.split(',')[0]
+            weatherToSave[day]['high'] = dailyWeather.tempmax
+            weatherToSave[day]['low'] = dailyWeather.tempmin
+        }
+        return weatherToSave
+    }
 }

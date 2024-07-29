@@ -1,6 +1,7 @@
-import ForecastService from "../services/weatherForecast.js";
+import ForecastService from "../services/forecast.js";
 import { appUtils } from "../utils/dateUtils.js";
 import { constants } from "../utils/constants.js";
+import { getFromLocalStorage, saveToLocalStorage } from "../services/localStorage.js";
 const locationName =  document.getElementById('location-name')
 
 export default class DOM {
@@ -9,20 +10,23 @@ export default class DOM {
         event.preventDefault();
         const input = document.getElementById('search')
         let cityToSearch =  input .value 
-        const prevCity = locationName.innerText;
         try {
             if (cityToSearch.length === 0 ){
                 throw new Error("Name can't be blank!")
             }
-          console.log('still rendering even with errors')
-          DOM.renderWeatherData({weather: forecast, location: cityToSearch})
+          const forecast = await ForecastService.fetchweekly({location: cityToSearch})
+          const parsedForcastData = ForecastService.extractWeatherData(forecast)
+          parsedForcastData.push({'city': cityToSearch})
+          saveToLocalStorage(JSON.stringify(parsedForcastData))
+          DOM.renderWeatherData({weather: parsedForcastData, location: cityToSearch})
           
         } catch (error){
-            cityToSearch = prevCity
             if (error.message.match('HTTP')){
                 input .classList.toggle('invalid-request-error')
             } 
             input.classList.toggle('required-error')
+            const lastForecast = JSON.parse(getFromLocalStorage())
+            DOM.renderWeatherData({weather: lastForecast, location: lastForecast[7].city})
         } 
     }
 
@@ -32,32 +36,32 @@ export default class DOM {
 }
 
     static renderWeatherData ({weather, location}){
+     
         document.querySelectorAll('[data-day]').forEach(dayCard => {
-            const day = dayCard.dataset.day
-            const weatherDatum = weather.days[day]
-            const formattedDate = weatherDatum.datetime.replaceAll('-', ',')
+            const day =  Number(dayCard.dataset.day)
+            const weatherDatum = weather[day]
+            const formattedDate = weatherDatum.date
             const weekDay = appUtils.getDate(formattedDate)
            
             if (day == 0){
-                const cityFinalVal =  location ?? 'new york'
-                locationName.innerText =  appUtils.capitalize(cityFinalVal)
+                locationName.innerText =  appUtils.capitalize(location)
                 const todayTempEl = dayCard.querySelector('[data-weekly-card-temp="now"]')
-                DOM.updateTempElement(todayTempEl, weather.currentConditions.temp)
+                DOM.updateTempElement(todayTempEl, weatherDatum.currentTemp)
             } else {
                 const dateEl = dayCard.querySelector('[data-weekly-card-date]')
                 dateEl.innerText = `${weekDay}`
             }
             // Setting temperature desciption attributes
             const tempDescEl = dayCard.querySelector('[data-weekly-card-temp="desc"]')
-            tempDescEl.innerText = `${weatherDatum.conditions.split(',')[0]}`
+            tempDescEl.innerText = `${weatherDatum.desc}`
     
             // Setting the highest temp of the day attributes
             const tempHighEl =  dayCard.querySelector('[data-weekly-card-temp="high"]')
-            DOM.updateTempElement(tempHighEl, weatherDatum.tempmax)
+            DOM.updateTempElement(tempHighEl, weatherDatum.high)
     
             // Setting the lowest temp of the day attributes
             const tempLowEl = dayCard.querySelector('[data-weekly-card-temp="low"]')
-            DOM.updateTempElement(tempLowEl, weatherDatum.tempmin)
+            DOM.updateTempElement(tempLowEl, weatherDatum.low)
         });
     }
 
@@ -86,9 +90,13 @@ export default class DOM {
     }
 
     static async defaultDisplay (){
-        const weather = await ForecastService.fetchweekly()
-        DOM.renderWeatherData({weather: weather})
-        locationName.innerText = 'New York'
+        const defaultCity = 'New York'
+        const weather = await ForecastService.fetchweekly({location: defaultCity})
+        const parsedForcastData = ForecastService.extractWeatherData(weather)
+        parsedForcastData.push({'city': defaultCity})
+        saveToLocalStorage(JSON.stringify(parsedForcastData))
+        DOM.renderWeatherData({weather:  parsedForcastData, location: defaultCity} )
+   
     }
 
 
