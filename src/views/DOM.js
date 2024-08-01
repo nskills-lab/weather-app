@@ -7,11 +7,9 @@ const locationName =  document.getElementById('location-name')
 export default class DOM {
 
     static async displayWeatherForLocation (event){
-        const lastForecast = JSON.parse(getFromLocalStorage())
         event.preventDefault();
         const input = document.getElementById('search')
-        console.log(lastForecast)
-        let cityToSearch =  input .value 
+        let cityToSearch =  input.value 
         try {
             if (cityToSearch.length === 0 ){
                 throw new Error("Name can't be blank!")
@@ -20,18 +18,19 @@ export default class DOM {
           const parsedForcastData = ForecastService.extractWeatherData(forecast)
           parsedForcastData.push({'city': cityToSearch})
           parsedForcastData.push({'scale': 'fahrenheit'})
-          saveToLocalStorage(JSON.stringify(parsedForcastData))
-          DOM.renderWeatherData({weather: parsedForcastData, location: cityToSearch})
+          DOM.renderWeatherData(parsedForcastData)
+          saveToLocalStorage(parsedForcastData)
           
         } catch (error){
             if (error.message.match('HTTP')){
-                console.log(alert('Invalid request!'))
+                alert('Invalid request! Please try again.')
             } else {
                 alert(error)
             }
-            console.log(lastForecast)
-            DOM.renderWeatherData({weather: lastForecast, location: lastForecast[7].city})
-        } 
+            await DOM.defaultDisplay()
+        } finally {
+            input.value = ''
+        }
     }
 
     static updateTempElement (element, temp){
@@ -39,7 +38,7 @@ export default class DOM {
         element.dataset.tempValue = temp
 }
 
-    static renderWeatherData ({weather, location}){
+    static renderWeatherData (weather){
      
         document.querySelectorAll('[data-day]').forEach(dayCard => {
             const day =  Number(dayCard.dataset.day)
@@ -48,7 +47,7 @@ export default class DOM {
             const weekDay = appUtils.getDate(formattedDate)
            
             if (day == 0){
-                locationName.innerText =  appUtils.capitalize(location)
+                locationName.innerText =  appUtils.capitalize(weather[7].city)
                 const todayTempEl = dayCard.querySelector('[data-weekly-card-temp="now"]')
                 DOM.updateTempElement(todayTempEl, weatherDatum.currentTemp)
             } else {
@@ -78,7 +77,7 @@ export default class DOM {
     }
 
     static async  updateTempScaleDisplay (tempScale) {
-        const localStorageForecast = JSON.parse(getFromLocalStorage())
+        const localStorageForecast = getFromLocalStorage()
         document.querySelectorAll('[data-day]').forEach(dayCard =>{
             const day = dayCard.dataset.day
             let convertedDegree
@@ -103,29 +102,22 @@ export default class DOM {
         const currentEl = document.querySelector('[data-weekly-card-temp-scale]')
 
         currentEl.dataset.weeklyCardTempScale =   localStorageForecast[8].scale 
-        saveToLocalStorage(JSON.stringify(localStorageForecast))
+        saveToLocalStorage(localStorageForecast)
 
     }
 
     static async defaultDisplay (){
-        const defaultCity = 'New York'
-        const weather = await ForecastService.fetchweekly({location: defaultCity})
-        const parsedForcastData = ForecastService.extractWeatherData(weather)
-        parsedForcastData.push({'city': defaultCity})
-        parsedForcastData.push({'scale': 'fahrenheit'})
-        saveToLocalStorage(JSON.stringify(parsedForcastData))
-        DOM.renderWeatherData({weather:  parsedForcastData, location: defaultCity} )
-   
-    }
-
-    static async loadFromLocalStorage (){
-        const local = getFromLocalStorage()
-        if(!getFromLocalStorage()){
-            await DOM.defaultDisplay()
-        } else {
-        const lastForecast = JSON.parse(getFromLocalStorage())
-        DOM.renderWeatherData({weather: lastForecast, location: lastForecast[7].city})
+        let storedWeather = getFromLocalStorage()
+        if (storedWeather === null){
+            const defaultCity = 'New York'
+            const weather = await ForecastService.fetchweekly({location: defaultCity})
+            const parsedForcastData = ForecastService.extractWeatherData(weather)
+            parsedForcastData.push({'city': defaultCity})
+            parsedForcastData.push({'scale': 'fahrenheit'})
+            saveToLocalStorage(parsedForcastData)
         }
+        storedWeather = getFromLocalStorage()
+        DOM.renderWeatherData(storedWeather)
     }
 
     static switchTimeScales(event){
