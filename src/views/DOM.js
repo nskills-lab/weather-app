@@ -11,7 +11,6 @@ export default class DOM {
         event.preventDefault();
         errorEl.innerText = ''
         const prevCity = getFromLocalStorage()[7].city
-        console.log(prevCity)
         const input = document.getElementById('search')
         let cityToSearch =  input.value 
         try {
@@ -53,30 +52,29 @@ export default class DOM {
                 locationName.innerText =  appUtils.capitalize(weather[7].city)
                 const todayTempEl = dayCard.querySelector('[data-weekly-card-temp="now"]')
                 DOM.updateTempElement(todayTempEl, weatherDatum.currentTemp)
+                const icon = dayCard.querySelector('[data-weekly-card-temp-icon="now"]')
+                
             } else {
                 const dateEl = dayCard.querySelector('[data-weekly-card-date]')
                 dateEl.innerText = `${weekDay}`
             }
-            // Setting temperature desciption attributes
-            const tempDescEl = dayCard.querySelector('[data-weekly-card-temp="desc"]')
-            tempDescEl.innerText = `${weatherDatum.desc}`
     
             // Setting the highest temp of the day attributes
             const tempHighEl =  dayCard.querySelector('[data-weekly-card-temp="high"]')
-            DOM.updateTempElement(tempHighEl, weatherDatum.high)
+            DOM.updateTempElement(tempHighEl, weatherDatum.high, 'H')
     
             // Setting the lowest temp of the day attributes
             const tempLowEl = dayCard.querySelector('[data-weekly-card-temp="low"]')
-            DOM.updateTempElement(tempLowEl, weatherDatum.low)
+            DOM.updateTempElement(tempLowEl, weatherDatum.low, 'L')
         });
         const currentEl = document.querySelector('[data-weekly-card-temp-scale]')
         currentEl.dataset.weeklyCardTempScale = weather[8].scale
         DOM.updateTempScaleToggle(weather[8].scale)
     }
 
-    static updateTempElement(element, temp){
-    element.innerText = `${temp}${constants.DEGREE_SIGN}`
-    element.dataset.tempValue = temp
+    static updateTempElement(element, temp, attr=''){
+        element.innerText = `${attr} ${temp}${constants.DEGREE_SIGN}`
+        element.dataset.tempValue = temp
     }
 
     static async  updateTempScaleDisplay (tempScale) {
@@ -123,7 +121,6 @@ export default class DOM {
 
         const scaleBtns = document.querySelectorAll('[data-temp-scale]')
         scaleBtns.forEach(btn =>{
-            console.log(btn.dataset.tempScale === selectedTempScale)
             if (btn.dataset.tempScale === selectedTempScale){
                 const classes = [...btn.classList]
                 if (classes.includes('off')){

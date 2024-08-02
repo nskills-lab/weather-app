@@ -97,8 +97,9 @@ button{
     left: 10px;
 }
 
-#scale-toggles{
-    
+img{
+    max-width: 60px;
+    max-height: 60px;
 }
 
 button[data-temp-scale]{
@@ -143,8 +144,9 @@ button:hover{
     justify-content: center;
 }
 
-#weather-content>div{
-    height: 10%;
+[data-weekly-card-temp-icon="now"]{
+
+    margin: 10px 0;
 }
 
 div[data-weekly-card-temp='now']{

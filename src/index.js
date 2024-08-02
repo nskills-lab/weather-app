@@ -1,6 +1,6 @@
 /**
  *
- * 7. Handle weather display when invalid input (right now it reloads with NA)
+ * 7. Handle weather display when invalid input (right now it reloads with NA)  => DONE
  * 8. Improve desing:
  * - Add icons for weather conditions
  * - Add custom error messages: empty input, invalid city => DONE
