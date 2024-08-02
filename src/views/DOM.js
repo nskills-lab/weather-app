@@ -2,6 +2,7 @@ import ForecastService from "../services/forecast.js";
 import { appUtils } from "../utils/dateUtils.js";
 import { constants } from "../utils/constants.js";
 import { getFromLocalStorage, saveToLocalStorage } from "../utils/localStorage.js";
+import { icon } from "../utils/icon.js";
 const locationName =  document.getElementById('location-name')
 const errorEl = document.getElementById('error')
 
@@ -52,12 +53,17 @@ export default class DOM {
                 locationName.innerText =  appUtils.capitalize(weather[7].city)
                 const todayTempEl = dayCard.querySelector('[data-weekly-card-temp="now"]')
                 DOM.updateTempElement(todayTempEl, weatherDatum.currentTemp)
-                const icon = dayCard.querySelector('[data-weekly-card-temp-icon="now"]')
+                const iconEl = dayCard.querySelector('[data-weekly-card-temp-icon="now"]')
+                iconEl.querySelector('img').src = icon.getIconFilePath(weatherDatum.icon)
                 
             } else {
                 const dateEl = dayCard.querySelector('[data-weekly-card-date]')
                 dateEl.innerText = `${weekDay}`
             }
+
+            // Setting weather icon
+            const iconEl = dayCard.querySelector('[data-weekly-card-temp-icon]')
+            iconEl.querySelector('img').src = icon.getIconFilePath(weatherDatum.icon)
     
             // Setting the highest temp of the day attributes
             const tempHighEl =  dayCard.querySelector('[data-weekly-card-temp="high"]')

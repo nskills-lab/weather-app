@@ -23,7 +23,7 @@ body{
     display: flex;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient( #7dd3fc, #7dd3fc,#7dd3fc,  #fed7aa,#fdba74, #fb923c, #0f172a,#020617, var(--main-dark-color));
+    background-image: linear-gradient( #7dd3fc, #7dd3fc, #bae6fd,#fed7aa,#fed7aa, #fdba74, #fb923c, #0f172a, #020617, #0f172a);
     opacity: .9;
     flex-direction: column;
     align-items: center;
@@ -46,6 +46,7 @@ body{
 h2{
     position: relative;
     left: 20px;
+    color: var(--main-light-color);
 }
 
 #form-container{
@@ -100,6 +101,7 @@ button{
 img{
     max-width: 60px;
     max-height: 60px;
+
 }
 
 button[data-temp-scale]{
@@ -126,6 +128,7 @@ button:hover{
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 #location-name{
@@ -145,8 +148,8 @@ button:hover{
 }
 
 [data-weekly-card-temp-icon="now"]{
-
     margin: 10px 0;
+  
 }
 
 div[data-weekly-card-temp='now']{
@@ -174,6 +177,7 @@ div[data-weekly-card]{
     box-shadow: var(--main-box-shadow);
     align-items: center;
     justify-content: center;
+
 }
 
 div[data-weekly-card-date]{
