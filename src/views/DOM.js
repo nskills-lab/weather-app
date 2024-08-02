@@ -3,11 +3,15 @@ import { appUtils } from "../utils/dateUtils.js";
 import { constants } from "../utils/constants.js";
 import { getFromLocalStorage, saveToLocalStorage } from "../services/localStorage.js";
 const locationName =  document.getElementById('location-name')
+const errorEl = document.getElementById('error')
 
 export default class DOM {
 
     static async displayWeatherForLocation (event){
         event.preventDefault();
+        errorEl.innerText = ''
+        const prevCity = getFromLocalStorage()
+        console.log(prevCity)
         const input = document.getElementById('search')
         let cityToSearch =  input.value 
         try {
@@ -23,14 +27,14 @@ export default class DOM {
           
         } catch (error){
             if (error.message.match('HTTP')){
-                alert('Invalid request! Please try again.')
+                errorEl.innerText = 'Invalid request! Please try again.'
+
             } else {
-                alert(error)
+                errorEl.innerText = error.message
             }
-            await DOM.defaultDisplay()
-        } finally {
-            input.value = ''
-        }
+            DOM.renderWeatherData(prevCity)
+            saveToLocalStorage(prevCity)
+        } 
     }
 
     static updateTempElement (element, temp){
@@ -67,8 +71,8 @@ export default class DOM {
             DOM.updateTempElement(tempLowEl, weatherDatum.low)
         });
         const currentEl = document.querySelector('[data-weekly-card-temp-scale]')
-    
         currentEl.dataset.weeklyCardTempScale = weather[8].scale
+        DOM.updateTempScaleToggle(weather[8].scale)
     }
 
     static updateTempElement(element, temp){
@@ -100,6 +104,7 @@ export default class DOM {
 
         localStorageForecast[8].scale = tempScale
         const currentEl = document.querySelector('[data-weekly-card-temp-scale]')
+        DOM.updateTempScaleToggle(tempScale)
 
         currentEl.dataset.weeklyCardTempScale =   localStorageForecast[8].scale 
         saveToLocalStorage(localStorageForecast)
@@ -107,17 +112,34 @@ export default class DOM {
     }
 
     static async defaultDisplay (){
-        let storedWeather = getFromLocalStorage()
-        if (storedWeather === null){
-            const defaultCity = 'New York'
-            const weather = await ForecastService.fetchweekly({location: defaultCity})
-            const parsedForcastData = ForecastService.extractWeatherData(weather)
-            parsedForcastData.push({'city': defaultCity})
-            parsedForcastData.push({'scale': 'fahrenheit'})
-            saveToLocalStorage(parsedForcastData)
-        }
-        storedWeather = getFromLocalStorage()
-        DOM.renderWeatherData(storedWeather)
+        const defaultCity = 'New York'
+        const weather = await ForecastService.fetchweekly({location: defaultCity})
+        const parsedForcastData = ForecastService.extractWeatherData(weather)
+        parsedForcastData.push({'city': defaultCity})
+        parsedForcastData.push({'scale': 'fahrenheit'})
+        DOM.renderWeatherData(parsedForcastData)
+        saveToLocalStorage(parsedForcastData)
+    }
+
+    static updateTempScaleToggle(selectedTempScale){
+
+        const scaleBtns = document.querySelectorAll('[data-temp-scale]')
+        scaleBtns.forEach(btn =>{
+            console.log(btn.dataset.tempScale === selectedTempScale)
+            if (btn.dataset.tempScale === selectedTempScale){
+                const classes = [...btn.classList]
+                if (classes.includes('off')){
+                    btn.classList.remove('off')
+                } 
+            } else {
+                const classes = [...btn.classList]
+                if (!classes.includes('off')){
+                    btn.classList.toggle('off')
+                }
+            }
+           
+        })
+     
     }
 
     static switchTimeScales(event){
@@ -126,19 +148,6 @@ export default class DOM {
             const currentEl = (document.querySelector('[data-weekly-card-temp-scale]'))
             const currentScaleValue = currentEl.dataset.weeklyCardTempScale
             if (currentScaleValue === selectedTempScale) return
-
-            currentEl.dataset.weeklyCardTempScale = selectedTempScale 
-            const scaleBtns = document.querySelectorAll('[data-temp-scale]')
-            scaleBtns.forEach(btn =>{
-                const classes = [...btn.classList]
-                    if (classes.includes('off')){
-                        btn.classList.remove('off')
-                    } else {
-                    btn.classList.toggle('off')
-                    }
-
-            })
-         
             DOM.updateTempScaleDisplay(selectedTempScale)
         }
     }
