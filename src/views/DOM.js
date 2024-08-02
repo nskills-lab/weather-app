@@ -1,7 +1,7 @@
 import ForecastService from "../services/forecast.js";
 import { appUtils } from "../utils/dateUtils.js";
 import { constants } from "../utils/constants.js";
-import { getFromLocalStorage, saveToLocalStorage } from "../services/localStorage.js";
+import { getFromLocalStorage, saveToLocalStorage } from "../utils/localStorage.js";
 const locationName =  document.getElementById('location-name')
 const errorEl = document.getElementById('error')
 
@@ -10,7 +10,7 @@ export default class DOM {
     static async displayWeatherForLocation (event){
         event.preventDefault();
         errorEl.innerText = ''
-        const prevCity = getFromLocalStorage()
+        const prevCity = getFromLocalStorage()[7].city
         console.log(prevCity)
         const input = document.getElementById('search')
         let cityToSearch =  input.value 
@@ -32,8 +32,7 @@ export default class DOM {
             } else {
                 errorEl.innerText = error.message
             }
-            DOM.renderWeatherData(prevCity)
-            saveToLocalStorage(prevCity)
+            DOM.defaultDisplay(prevCity)
         } 
     }
 
@@ -111,11 +110,10 @@ export default class DOM {
 
     }
 
-    static async defaultDisplay (){
-        const defaultCity = 'New York'
-        const weather = await ForecastService.fetchweekly({location: defaultCity})
+    static async defaultDisplay (prevCity='New York'){
+        const weather = await ForecastService.fetchweekly({location: prevCity})
         const parsedForcastData = ForecastService.extractWeatherData(weather)
-        parsedForcastData.push({'city': defaultCity})
+        parsedForcastData.push({'city': prevCity})
         parsedForcastData.push({'scale': 'fahrenheit'})
         DOM.renderWeatherData(parsedForcastData)
         saveToLocalStorage(parsedForcastData)
