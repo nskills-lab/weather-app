@@ -1,11 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <script type="module" src="index.js"></script>
     <title>Weather App</title>
-</head>
-<body>
-    <script src="main.js"></script>
-</body>
+  <script defer src="bundle.js"></script></head>
+  <body>
+    <div class="container">
+      <div id="header-section" class="content">
+        <h2 id="app-title">Weekly Weather Forecast</h2>
+        <div id="form-container">
+          <form id="search-options-form">
+            <label for="search"></label>
+            <input
+              id="search"
+              type="search"
+              placeholder="Search city"
+              value=""
+            />
+            <button id="button-search" type="submit">&#x1F50D;</button>
+          </form>
+          <div id="error"></div>
+        </div>
+      </div>
+      <div id="today" class="content">
+        <div id="location-name"></div>
+        <div id="weather-content" data-day="0">
+          <div
+            data-weekly-card-temp="now"
+            data-weekly-card-temp-scale="fahrenheit"
+          ></div>
+          <div data-weekly-card-temp-icon="now">
+            <img src="" alt="Weather icon" />
+          </div>
+          <div id="temp">
+            <div id="high-temp" data-weekly-card-temp="high"></div>
+            <div id="low-temp" data-weekly-card-temp="low"></div>
+          </div>
+        </div>
+        <div id="scale-toggles">
+          <button data-temp-scale="fahrenheit">°F</button>
+          <button class="off" data-temp-scale="celsius">°C</button>
+        </div>
+      </div>
+      <div id="weekly" class="content">
+        <div data-weekly-card data-day="1">
+          <div data-weekly-card-date></div>
+          <div data-weekly-card-temp-icon="1">
+            <img src="" alt="Weather icon" />
+          </div>
+          <div data-weekly-card-temp="high-low">
+            <div data-weekly-card-temp="high"></div>
+            <div data-weekly-card-temp="low"></div>
+          </div>
+        </div>
+        <div data-weekly-card data-day="2">
+          <div data-weekly-card-date></div>
+          <div data-weekly-card-temp-icon="2">
+            <img src="" alt="Weather icon" />
+          </div>
+          <div data-weekly-card-temp="high-low">
+            <div data-weekly-card-temp="high"></div>
+            <div data-weekly-card-temp="low"></div>
+          </div>
+        </div>
+        <div data-weekly-card data-day="3">
+          <div data-weekly-card-date></div>
+          <div data-weekly-card-temp-icon="3">
+            <img src="" alt="Weather icon" />
+          </div>
+          <div data-weekly-card-temp="high-low">
+            <div data-weekly-card-temp="high"></div>
+            <div data-weekly-card-temp="low"></div>
+          </div>
+        </div>
+        <div data-weekly-card data-day="4">
+          <div data-weekly-card-date></div>
+          <div data-weekly-card-temp-icon="4">
+            <img src="" alt="Weather icon" />
+          </div>
+          <div data-weekly-card-temp="high-low">
+            <div data-weekly-card-temp="high"></div>
+            <div data-weekly-card-temp="low"></div>
+          </div>
+        </div>
+        <div data-weekly-card data-day="5">
+          <div data-weekly-card-date></div>
+          <div data-weekly-card-temp-icon="5">
+            <img src="" alt="Weather icon" />
+          </div>
+          <div data-weekly-card-temp="high-low">
+            <div data-weekly-card-temp="high"></div>
+            <div data-weekly-card-temp="low"></div>
+          </div>
+        </div>
+        <div data-weekly-card data-day="6">
+          <div data-weekly-card-date></div>
+          <div data-weekly-card-temp-icon="6">
+            <img src="" alt="Weather icon" />
+          </div>
+          <div data-weekly-card-temp="high-low">
+            <div data-weekly-card-temp="high"></div>
+            <div data-weekly-card-temp="low"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
