@@ -12,7 +12,7 @@ class Icons {
   ])
 
   #getIconFilePath(iconName) {
-    return `styles/icons/${this.#ICON_FILE_NAME.get(iconName)}`
+    return `./styles/icons/${this.#ICON_FILE_NAME.get(iconName)}`
   }
 
   renderWeatherIcons(weather, dayCard) {
