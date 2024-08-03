@@ -1,19 +1,22 @@
 {
   "name": "weather-app",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "bundle.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack",
+    "preview": "git subtree push --prefix dist origin gh-pages"
   },
-  "author": "",
+  "author": "Nina Umar",
   "license": "ISC",
-  "description": "",
+  "description": "Simple weather app that displays 7 days forecast based on the city the user inputs.",
   "devDependencies": {
     "@eslint/js": "^9.7.0",
+    "css-loader": "^7.1.2",
     "eslint": "^9.7.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.8.0",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^4.0.0",
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4"
   },
