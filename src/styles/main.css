@@ -17,23 +17,21 @@ body{
     height: 100vh;
     font-family: 'Inconsolata';
     color: var(--main-light-color);
+ 
 }
 
 .container{
     display: flex;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient( #7dd3fc, #7dd3fc, #bae6fd,#fed7aa,#fed7aa, #fdba74, #fb923c, #0f172a, #020617, #0f172a);
-    opacity: .9;
+    background-image: linear-gradient( #7dd3fc, #7dd3fc,#fed7aa,#fed7aa, #fdba74, #fb923c, #0f172a, #020617, #0f172a);
     flex-direction: column;
     align-items: center;
 }
 
 .content{
     width: 100vw;
-
 }
-
 
 #header-section{
     width: 100vw;
@@ -55,7 +53,6 @@ h2{
     flex-direction: column;
     justify-content: flex-start;
     width: 600px;
-  
 }
 
 #search-options-form{
@@ -69,14 +66,13 @@ h2{
     border-color: red;
 }
 
-
 input#search{
     width: 300px;
     outline: 0;
     border: 0;
     box-shadow: var(--main-box-shadow);
     border-radius: var(--main-border-radius);
-    opacity: .8;
+    opacity: .7;
     font-family: 'Inconsolata';
     font-size: 1rem;
     height:  30px;;
@@ -89,7 +85,6 @@ button{
     font-size: 1rem;
     width: 35px;
     height: 30px;
-    
 }
 
 #button-search{
@@ -101,7 +96,6 @@ button{
 img{
     max-width: 60px;
     max-height: 60px;
-
 }
 
 button[data-temp-scale]{
@@ -120,7 +114,6 @@ button:hover{
     cursor: pointer;
 }
 
-
 #today{
     min-height: 50%;
     width: 60%;
@@ -128,7 +121,6 @@ button:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 #location-name{
@@ -148,8 +140,7 @@ button:hover{
 }
 
 [data-weekly-card-temp-icon="now"]{
-    margin: 10px 0;
-  
+    margin: 20px 0;
 }
 
 div[data-weekly-card-temp='now']{
@@ -168,7 +159,6 @@ div[data-weekly-card-temp='now']{
 }
 
 div[data-weekly-card]{
-    opacity: .7;
     height: 60%;
     width: 13%;
     border-radius: var(--main-border-radius);
@@ -177,7 +167,6 @@ div[data-weekly-card]{
     box-shadow: var(--main-box-shadow);
     align-items: center;
     justify-content: center;
-
 }
 
 div[data-weekly-card-date]{
@@ -186,6 +175,3 @@ div[data-weekly-card-date]{
     justify-self:  flex-start;
     margin-bottom: 10px;
 }
-
-
-

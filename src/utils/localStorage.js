@@ -1,7 +1,7 @@
 export function saveToLocalStorage(forecast) {
+  localStorage.setItem('weatherApp', JSON.stringify(forecast))
+}
 
-    localStorage.setItem('weatherApp', JSON.stringify(forecast));
-  }
 export function getFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('weatherApp'));
-  }
+  return JSON.parse(localStorage.getItem('weatherApp'))
+}
